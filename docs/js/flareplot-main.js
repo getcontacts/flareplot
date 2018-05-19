@@ -114,7 +114,10 @@ function createFlareplot(width, inputGraph, containerSelector){
                     return ret;
                 })
                 .style("stroke-width",function(){
-                    return 0;
+                  return 0;
+                })
+                .style("stroke-opacity",function(){
+                    return 0.15;
                 })
                 .style("stroke",function(d){ return d.color; })
                 .style("fill","none")
@@ -684,6 +687,10 @@ function createFlareplot(width, inputGraph, containerSelector){
                 toggledNodes[name] = "";
 
             path = svg.selectAll("path.link")
+              .style("stroke-opacity", function(d){
+                  const endpointtoggled = ( d.source.key in toggledNodes || d.target.key in toggledNodes);
+                return endpointtoggled ? 1 : 0.15;
+              })
                 .classed("toggled", function(d) {
                     return ( d.source.key in toggledNodes || d.target.key in toggledNodes)
                 });
